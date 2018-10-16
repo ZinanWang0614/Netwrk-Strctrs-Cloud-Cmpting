@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Course {
 	
-	private String courseId;
+	private long courseId;
+	private String courseName;
 	private Professor professor;
 	private Student ta;
 	private List<Lecture> lectures;
@@ -18,20 +19,29 @@ public class Course {
 		enrolledStu = new ArrayList<>();
 	}
 	
-	public Course(String courseId, Professor professor, Student ta, List<Lecture> lectures,List<Student> enrolledStu) {
+	public Course(long courseId,String courseName, Professor professor, Student ta, List<Lecture> lectures,List<Student> enrolledStu) {
 		this.courseId = courseId;
+		this.courseName = courseName;
 		this.professor = professor;
 		this.ta = ta;
 		this.lectures = lectures;
 		this.enrolledStu = enrolledStu;
 	}
 
-	public String getCourseId() {
+	public long getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(String courseId) {
+	public void setCourseId(long courseId) {
 		this.courseId = courseId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
 	public Professor getProfessor() {

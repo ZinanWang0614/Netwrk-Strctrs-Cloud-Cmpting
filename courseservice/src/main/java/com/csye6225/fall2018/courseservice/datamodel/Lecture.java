@@ -2,23 +2,25 @@ package com.csye6225.fall2018.courseservice.datamodel;
 
 public class Lecture {
 	
-	private String lectureId;
+	private long lectureId;
+	private String lectureName;
 	private String notes;
 	private String associatedMaterials;
 	
 	public Lecture() {}
 	
-	public Lecture(String lectureId, String notes, String associatedMaterials) {
+	public Lecture(long lectureId, String notes, String associatedMaterials,String lectureName) {
 		this.lectureId = lectureId;
 		this.notes = notes;
 		this.associatedMaterials = associatedMaterials;
+		this.lectureName = lectureName;
 	}
 
-	public String getLectureId() {
+	public long getLectureId() {
 		return lectureId;
 	}
 
-	public void setLectureId(String lectureId) {
+	public void setLectureId(long lectureId) {
 		this.lectureId = lectureId;
 	}
 
@@ -37,5 +39,14 @@ public class Lecture {
 	public void setAssociatedMaterials(String associatedMaterials) {
 		this.associatedMaterials = associatedMaterials;
 	}
+
+	public String getLectureName() {
+		return lectureName;
+	}
+
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
+	
 	
 }
