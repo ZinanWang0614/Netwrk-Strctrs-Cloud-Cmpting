@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.csye6225.fall2018.courseservice.datamodel.Course;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Student;
 
@@ -11,6 +12,7 @@ public class StudentService {
 	
 	static HashMap<Long,Student> studentDB = InMemoryDatabase.getStudentDB();
 	
+	//Get all students
 	public List<Student> getAllStudents() {	
 		//Getting the list
 		ArrayList<Student> list = new ArrayList<>();
@@ -19,6 +21,7 @@ public class StudentService {
 		}
 		return list ;
 	}
+	
 	
 	// add student 
 	public void addStudent(String studentName, String image, String programName) {

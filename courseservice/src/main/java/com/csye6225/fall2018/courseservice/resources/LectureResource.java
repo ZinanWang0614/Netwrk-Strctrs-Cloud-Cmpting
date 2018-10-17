@@ -14,7 +14,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.csye6225.fall2018.courseservice.datamodel.Lecture;
-import com.csye6225.fall2018.courseservice.service.CourseService;
 import com.csye6225.fall2018.courseservice.service.LectureService;
 
 @Path("/")
