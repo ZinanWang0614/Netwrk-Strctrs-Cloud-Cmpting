@@ -26,7 +26,6 @@ import com.csye6225.fall2018.courseservice.service.LectureService;
 import com.csye6225.fall2018.courseservice.service.ProfessorsService;
 import com.csye6225.fall2018.courseservice.service.StudentService;
 
-@Path("classes")
 public class CourseResource {
 
 	CourseService courseService = new CourseService();
@@ -39,16 +38,16 @@ public class CourseResource {
 	// GET all course
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Course> getAllCourses() {
-		return courseService.getAllCourses();
+	public List<Course> getAllCourses(@PathParam("programid") Long programId) {
+		return courseService.getAllCourses(programId);
 	}
 
 	// Get Course by Id
 	@GET
 	@Path("/{courseid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Course getCoursebyId(@PathParam("courseid") Long courseId) {
-		return courseService.getCoursebyId(courseId);
+	public Course getCoursebyId(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
+		return courseService.getCoursebyId(programId,courseId);
 	}
 	//**********************************************************************************//
 
@@ -60,21 +59,24 @@ public class CourseResource {
 	@GET
 	@Path("/{courseid}/students")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> getEnrolledStudents(@PathParam("courseid") Long courseId) {
-		return courseService.getAllStudentsbyCourse(courseId);
+	public List<Student> getEnrolledStudents(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
+		return courseService.getAllStudentsbyCourse(programId,courseId);
 	}
 
 	// Post enrolled student
 	@POST
 	@Path("/{courseid}/students/{studentid}")
-	public Student addenrolledStudent(@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
-		return courseService.addEnrolledStudent(courseId, studentId);
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student addenrolledStudent(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
+		return courseService.addEnrolledStudent(programId,courseId, studentId);
 	}
 	
 	@DELETE
 	@Path("/{courseid}/students/{studentid}")
-	public Student deleteenrolledStudent(@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
-		return courseService.deleteEnrolledStudent(courseId, studentId);
+	@Produces(MediaType.APPLICATION_JSON)
+	public Student deleteenrolledStudent(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
+		return courseService.deleteEnrolledStudent(programId,courseId, studentId);
 	}
 	//*************************************************************************************//
 
@@ -110,22 +112,23 @@ public class CourseResource {
 	@GET
 	@Path("/{courseid}/professor")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Professor getProfessor(@PathParam("courseid") Long courseId) {
-		return courseService.getProfessor(courseId);
+	public Professor getProfessor(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
+		return courseService.getProfessor(programId,courseId);
 	}
 	
 	@POST
 	@Path("/{courseid}/professor/{profid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Professor addProfessor(@PathParam("courseid") Long courseId,@PathParam("profid") Long profId) {
-		return courseService.addProfessor(courseId, profId);
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Professor addProfessor(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("profid") Long profId) {
+		return courseService.addProfessor(programId,courseId, profId);
 	}
 	
 	@DELETE
 	@Path("/{courseid}/professor/{profid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Professor deleteProfessor(@PathParam("courseid") Long courseId,@PathParam("profid") Long profId) {
-		return courseService.deleteProfessor(courseId, profId);
+	public Professor deleteProfessor(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("profid") Long profId) {
+		return courseService.deleteProfessor(programId,courseId, profId);
 	}
 	//***********************************************************************************************//
 	
@@ -135,22 +138,23 @@ public class CourseResource {
 	@GET
 	@Path("/{courseid}/ta")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student getTa(@PathParam("courseid") Long courseId) {
-		return courseService.getTa(courseId);
+	public Student getTa(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
+		return courseService.getTa(programId,courseId);
 	}
 	
 	@POST
 	@Path("/{courseid}/ta/{studentid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student addTa(@PathParam("courseid") Long courseId,@PathParam("studentid") Long studentId) {
-		return courseService.addTa(courseId, studentId);
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student addTa(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("studentid") Long studentId) {
+		return courseService.addTa(programId,courseId, studentId);
 	}
 	
 	@DELETE
 	@Path("/{courseid}/ta/{studentid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student deleteTa(@PathParam("courseid") Long courseId,@PathParam("studentid") Long studentId) {
-		return courseService.deleteTa(courseId, studentId);
+	public Student deleteTa(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("studentid") Long studentId) {
+		return courseService.deleteTa(programId,courseId, studentId);
 	}
 	//***********************************************************************************************//
 	

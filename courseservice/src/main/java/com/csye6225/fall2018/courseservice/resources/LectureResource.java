@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import com.csye6225.fall2018.courseservice.datamodel.Lecture;
 import com.csye6225.fall2018.courseservice.service.LectureService;
 
-@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class LectureResource {
@@ -25,30 +24,30 @@ public class LectureResource {
 	LectureService lecService = new LectureService();
 	
 	@GET
-	public List<Lecture> getAllLectures(@PathParam("courseid") Long courseId){		
-		return lecService.getAllLecture(courseId);
+	public List<Lecture> getAllLectures(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId){		
+		return lecService.getAllLecture(programId,courseId);
 	}
 	
 	@GET
 	@Path("/{lectureid}")
-	public Lecture getLecturebyId(@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId) {
-		return lecService.getLecturebyId(courseId, lectureId);
+	public Lecture getLecturebyId(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId) {
+		return lecService.getLecturebyId(programId,courseId, lectureId);
 	}
 	
 	@POST
-	public Lecture addLecture(@PathParam("courseid") Long courseId,Lecture lec) {
-		return lecService.addLecture(courseId, lec);
+	public Lecture addLecture(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,Lecture lec) {
+		return lecService.addLecture(programId,courseId, lec);
 	}
 	
 	@PUT
 	@Path("/{lectureid}")
-	public Lecture updateLecture(@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId,Lecture lecture) {
-		return lecService.updateLecture(courseId, lectureId, lecture);
+	public Lecture updateLecture(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId,Lecture lecture) {
+		return lecService.updateLecture(programId,courseId, lectureId, lecture);
 	}
 	
 	@DELETE
 	@Path("/{lectureid}")
-	public Lecture deleteLecture(@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId) {
-		return lecService.DeleteLecture(courseId, lectureId);
+	public Lecture deleteLecture(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("lectureid") Long lectureId) {
+		return lecService.DeleteLecture(programId,courseId, lectureId);
 	}
 }

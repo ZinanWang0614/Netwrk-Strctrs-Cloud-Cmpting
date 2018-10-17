@@ -37,7 +37,7 @@ public class StudentResource {
 	@DELETE
 	@Path("/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Student deleteStudent(@PathParam("studentId") long studentId) {
+	public Student deleteStudent(@PathParam("studentId") Long studentId) {
 		return studentService.deleteStudent(studentId);
 	}
 	
@@ -45,7 +45,7 @@ public class StudentResource {
 	@Path("/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Student updateStudent(@PathParam("studentId") long studentId, Student student) {
+	public Student updateStudent(@PathParam("studentId") Long studentId, Student student) {
 		return studentService.updateStudentInfo(studentId, student);
 	}
 	

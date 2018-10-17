@@ -39,7 +39,7 @@ public class StudentService {
 		return studentDB.get(nextAvailableId);
 	}
 	
-	public Student deleteStudent(long studentId) {
+	public Student deleteStudent(Long studentId) {
 		Student deletedDetails = studentDB.get(studentId);
 		studentDB.remove(studentId);
 		return deletedDetails;

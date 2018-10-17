@@ -7,60 +7,80 @@ import java.util.List;
 import com.csye6225.fall2018.courseservice.datamodel.Course;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Lecture;
+import com.csye6225.fall2018.courseservice.datamodel.Program;
 
 public class LectureService {
 	
-	static HashMap<Long,Course> courseDB = InMemoryDatabase.getCourseDB();
+	static HashMap<Long,Program> programDB = InMemoryDatabase.getProgramDB();
 	
 	//GET all lectures
-	public List<Lecture> getAllLecture(Long courseId){
-		List<Lecture> list = courseDB.get(courseId).getLectures();
-		return list;	
+	public List<Lecture> getAllLecture(Long programId,Long courseId){
+		List<Course> list = programDB.get(programId).getCourseList();
+		for(Course course:list) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				return course.getLectures();
+			}
+		}
+		return null;	
 	}
 	
 	//ADD a lecture
-	public Lecture addLecture(Long courseId,Lecture lec) {
-		List<Lecture> list = courseDB.get(courseId).getLectures();
-		lec.setLectureId(list.size() +1);
-		list.add(lec);
+	public Lecture addLecture(Long programId,Long courseId,Lecture lec) {
+		for(Course course:programDB.get(programId).getCourseList()) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				List<Lecture> list = course.getLectures();
+				lec.setLectureId(list.size() +1);
+				course.getLectures().add(lec);
+			}
+		}
 		return lec;
 	}
 	
 	// update a lecture
-	public Lecture updateLecture(Long courseId,Long lectureId,Lecture lec) {
-		List<Lecture> list = courseDB.get(courseId).getLectures();
-		for(Lecture lecture:list) {
-			if(lectureId.equals(new Long(lecture.getLectureId()))){
-				lec.setLectureId(lectureId);
-				lecture = lec;
-				return lecture;
+	public Lecture updateLecture(Long programId,Long courseId,Long lectureId,Lecture lec) {
+		for(Course course:programDB.get(programId).getCourseList()) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				for(Lecture lecture:course.getLectures()) {
+					if(Long.valueOf(lecture.getLectureId()).equals(lectureId)){
+						lec.setLectureId(lectureId);
+						lecture = lec;
+						return lecture;
+					}
+				}
+			}
+		}	
+		return null;
+	}
+	
+	//get lecture by id
+	public Lecture getLecturebyId(Long programId,Long courseId,Long lectureId) {
+		for(Course course:programDB.get(programId).getCourseList()) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				for(Lecture lecture:course.getLectures()) {
+					if(lectureId.equals(new Long(lecture.getLectureId()))){
+						return lecture;
+					}
+				}
 			}
 		}
 		
 		return null;
 	}
 	
-	//get lecture by id
-	public Lecture getLecturebyId(Long courseId,Long lectureId) {
-		List<Lecture> list = courseDB.get(courseId).getLectures();
-		for(Lecture lecture:list) {
-			if(lectureId.equals(new Long(lecture.getLectureId()))){
-				return lecture;
-			}
-		}
-		return null;
-	}
-	
 	//delete lecture
-	public Lecture DeleteLecture(Long courseId,Long lectureId) {
-		List<Lecture> list = courseDB.get(courseId).getLectures();
+	public Lecture DeleteLecture(Long programId,Long courseId,Long lectureId) {
 		Lecture lec = new Lecture();
-		for(Lecture lecture:list) {
-			if(lectureId.equals(new Long(lecture.getLectureId()))){
-				lec = lecture;
-				list.remove(lecture);
+		for(Course course:programDB.get(programId).getCourseList()) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				for(Lecture lecture:course.getLectures()) {
+					if(lectureId.equals(new Long(lecture.getLectureId()))){
+						lec = lecture;
+						course.getLectures().remove(lecture);
+						return lec;
+					}
+				}
 			}
-		}
+		}	
 		return lec;
 	}
 }
