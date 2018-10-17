@@ -4,51 +4,63 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.csye6225.fall2018.courseservice.datamodel.Course;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Lecture;
 
 public class LectureService {
 	
-static HashMap<Long,Lecture> lectureDB = InMemoryDatabase.getLectureDB();
+	static HashMap<Long,Course> courseDB = InMemoryDatabase.getCourseDB();
 	
-	public List<Lecture> getAllStudents() {	
-		//Getting the list
-		ArrayList<Lecture> list = new ArrayList<>();
-		for (Lecture prof : lectureDB.values()) {
-			list.add(prof);
+	//GET all lectures
+	public List<Lecture> getAllLecture(Long courseId){
+		List<Lecture> list = courseDB.get(courseId).getLectures();
+		return list;	
+	}
+	
+	//ADD a lecture
+	public Lecture addLecture(Long courseId,Lecture lec) {
+		List<Lecture> list = courseDB.get(courseId).getLectures();
+		lec.setLectureId(list.size() +1);
+		list.add(lec);
+		return lec;
+	}
+	
+	// update a lecture
+	public Lecture updateLecture(Long courseId,Long lectureId,Lecture lec) {
+		List<Lecture> list = courseDB.get(courseId).getLectures();
+		for(Lecture lecture:list) {
+			if(lectureId.equals(new Long(lecture.getLectureId()))){
+				lec.setLectureId(lectureId);
+				lecture = lec;
+				return lecture;
+			}
 		}
-		return list ;
-	}
-	
-	// add student 
-	public void addStudent (String notes,String associatedMaterials,String lectureName) {
-		long nextAvailableId = lectureDB.size() + 1;
 		
-		Lecture student = new Lecture(nextAvailableId,notes,associatedMaterials,lectureName);
-		lectureDB.put(nextAvailableId, student);
+		return null;
 	}
 	
-	// add student
-	public Lecture addStudent(Lecture lecture) {
-		long nextAvailableId = lectureDB.size() + 1;
-		lecture.setLectureId(nextAvailableId);
-		lectureDB.put(nextAvailableId, lecture);
-		return lectureDB.get(nextAvailableId);
+	//get lecture by id
+	public Lecture getLecturebyId(Long courseId,Long lectureId) {
+		List<Lecture> list = courseDB.get(courseId).getLectures();
+		for(Lecture lecture:list) {
+			if(lectureId.equals(new Long(lecture.getLectureId()))){
+				return lecture;
+			}
+		}
+		return null;
 	}
 	
-	public Lecture deleteStudent(long lectureId) {
-		Lecture deletedDetails = lectureDB.get(lectureId);
-		lectureDB.remove(lectureId);
-		return deletedDetails;
+	//delete lecture
+	public Lecture DeleteLecture(Long courseId,Long lectureId) {
+		List<Lecture> list = courseDB.get(courseId).getLectures();
+		Lecture lec = new Lecture();
+		for(Lecture lecture:list) {
+			if(lectureId.equals(new Long(lecture.getLectureId()))){
+				lec = lecture;
+				list.remove(lecture);
+			}
+		}
+		return lec;
 	}
-	
-	public Lecture updateStudentInfo(Long studentId, Lecture student) {
-		
-		Lecture oldStudent = lectureDB.get(studentId);
-		studentId = oldStudent.getLectureId();
-		student.setLectureId(studentId);
-		lectureDB.put(studentId, student);
-		return student;
-	}
-
 }

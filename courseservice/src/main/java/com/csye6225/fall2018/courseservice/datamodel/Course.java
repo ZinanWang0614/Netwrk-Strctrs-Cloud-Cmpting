@@ -12,17 +12,12 @@ public class Course {
 	private List<Lecture> lectures;
 	private List<Student> enrolledStu;
 	
-	public Course() {
-		professor = new Professor();
-		ta = new Student();
-		lectures = new ArrayList<>();
-		enrolledStu = new ArrayList<>();
-	}
+	public Course() {}
 	
-	public Course(long courseId,String courseName, Professor professor, Student ta, List<Lecture> lectures,List<Student> enrolledStu) {
+	public Course(long courseId,String courseName,Professor prof,Student ta, List<Lecture> lectures, List<Student> enrolledStu) {
 		this.courseId = courseId;
 		this.courseName = courseName;
-		this.professor = professor;
+		this.professor = prof;
 		this.ta = ta;
 		this.lectures = lectures;
 		this.enrolledStu = enrolledStu;
