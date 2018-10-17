@@ -67,7 +67,6 @@ public class CourseResource {
 	@POST
 	@Path("/{courseid}/students/{studentid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Student addenrolledStudent(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
 		return courseService.addEnrolledStudent(programId,courseId, studentId);
 	}
@@ -119,7 +118,6 @@ public class CourseResource {
 	@POST
 	@Path("/{courseid}/professor/{profid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Professor addProfessor(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("profid") Long profId) {
 		return courseService.addProfessor(programId,courseId, profId);
 	}
@@ -145,7 +143,6 @@ public class CourseResource {
 	@POST
 	@Path("/{courseid}/ta/{studentid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Student addTa(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId,@PathParam("studentid") Long studentId) {
 		return courseService.addTa(programId,courseId, studentId);
 	}

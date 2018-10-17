@@ -22,7 +22,8 @@ public class InMemoryDatabase {
 	
 	
 	public static HashMap<Long,Program> getProgramDB(){
-		Student ta = new Student(100,"zinan","none","msis");
+		List<String> enrolled = new ArrayList<>();
+		Student ta = new Student(100,"zinan","none","msis",enrolled);
 		studentDB.put(Long.valueOf(ta.getStudentId()),ta );
 		Professor prof = new Professor(100,"Ami","Amazon",new Date());
 		professorDB.put(Long.valueOf(prof.getProfessorId()),prof);
@@ -32,6 +33,7 @@ public class InMemoryDatabase {
 		List<Student> sts = new ArrayList<>();
 		sts.add(ta);
 		Course init = new Course(100,"Info5100",prof,ta,lecs,sts);
+		ta.getEnrolledCourses().add(init.getCourseName());
 		List<Course> courses = new ArrayList<>();
 		courses.add(init);
 		Program prog = new Program(100,"MSIS",courses);

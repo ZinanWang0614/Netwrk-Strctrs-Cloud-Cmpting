@@ -26,8 +26,8 @@ public class StudentService {
 	// add student 
 	public void addStudent(String studentName, String image, String programName) {
 		long nextAvailableId = studentDB.size() + 1;
-		
-		Student student = new Student(nextAvailableId,studentName,image,programName);
+		List<String> enrolled = new ArrayList<>();
+		Student student = new Student(nextAvailableId,studentName,image,programName,enrolled);
 		studentDB.put(nextAvailableId, student);
 	}
 	

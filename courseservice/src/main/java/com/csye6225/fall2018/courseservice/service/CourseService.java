@@ -57,14 +57,14 @@ public class CourseService {
 	//Add enrolled student
 	public Student addEnrolledStudent(Long programId,Long courseId,Long studentId) {
 		List<Course> list = programDB.get(programId).getCourseList();
-		
-		Student st = studentDB.get(studentId);
-		
+		Student st = new Student();
 		for(Course course:list) {
 			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				studentDB.get(studentId).getEnrolledCourses().add(course.getCourseName());
+				st = studentDB.get(studentId);
 				course.getEnrolledStu().add(st);
 			}
-		}
+		}	
 		
 		return st;
 	}
