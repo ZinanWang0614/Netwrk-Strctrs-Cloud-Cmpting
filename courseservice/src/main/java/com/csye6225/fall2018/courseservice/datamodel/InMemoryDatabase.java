@@ -42,14 +42,15 @@ public class InMemoryDatabase {
 		List<Student> sts = new ArrayList<>();
 		sts.add(ta);
 		
-		// add ta into roster
-		List<String> roster = new ArrayList<>();
-		roster.add(ta.getStudentName());
-		
 		// Announcement & add into board
 		Announcement an = new Announcement(1,"This is our first assignment,welcome everyone","Welcome");
 		List<Announcement> board = new ArrayList<>();
 		board.add(an);
+		
+		//add to roster
+		List<RosterName> roster = new ArrayList<>();
+		RosterName name = new RosterName(ta.getStudentName());
+		roster.add(name);
 		
 		// init course
 		Course init = new Course(1,"Info5100",prof,ta,lecs,sts,board,roster);

@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import com.csye6225.fall2018.courseservice.datamodel.Course;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Professor;
+import com.csye6225.fall2018.courseservice.datamodel.RosterName;
 import com.csye6225.fall2018.courseservice.datamodel.Student;
 import com.csye6225.fall2018.courseservice.service.CourseService;
 import com.csye6225.fall2018.courseservice.service.LectureService;
@@ -74,10 +75,7 @@ public class CourseResource {
 	public Student deleteenrolledStudent(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId, @PathParam("studentid") Long studentId) {
 		return courseService.deleteEnrolledStudent(programId,courseId, studentId);
 	}
-	//*************************************************************************************//
-
-	
-	
+	//******************************************************************************************//
 	
 	
 	//************************************ Lecture *********************************************//
@@ -136,7 +134,6 @@ public class CourseResource {
 	//***********************************************************************************************//
 	
 	
-	
 	//******************************************TA****************************************************//
 	@GET
 	@Path("/{courseid}/ta")
@@ -160,5 +157,11 @@ public class CourseResource {
 	}
 	//***********************************************************************************************//
 	
+	@GET
+	@Path("/{courseid}/roster")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<RosterName> gerRoster(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId){
+		return courseService.getroster(programId, courseId);
+	}
 	
 }

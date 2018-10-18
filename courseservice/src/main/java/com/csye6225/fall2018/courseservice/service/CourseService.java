@@ -10,6 +10,7 @@ import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Lecture;
 import com.csye6225.fall2018.courseservice.datamodel.Professor;
 import com.csye6225.fall2018.courseservice.datamodel.Program;
+import com.csye6225.fall2018.courseservice.datamodel.RosterName;
 import com.csye6225.fall2018.courseservice.datamodel.Student;
 
 public class CourseService {
@@ -63,6 +64,9 @@ public class CourseService {
 				studentDB.get(studentId).getEnrolledCourses().add(course.getCourseName());
 				st = studentDB.get(studentId);
 				course.getEnrolledStu().add(st);
+				//Add to roster
+				RosterName rn = new RosterName(st.getStudentName());
+				course.getRoster().add(rn);
 			}
 		}	
 		
@@ -76,6 +80,9 @@ public class CourseService {
 		for(Course course:list) {
 			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
 				course.getEnrolledStu().remove(details);
+				//delete from roster
+				RosterName rn = new RosterName(details.getStudentName());
+				course.getRoster().remove(rn);
 			}
 		}
 		
@@ -152,4 +159,16 @@ public class CourseService {
 		}
 		return ta;
 	}
+	
+	//get roster
+	public List<RosterName> getroster(Long programId,Long courseId){
+		List<Course> list = programDB.get(programId).getCourseList();
+		for(Course course:list) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				return course.getRoster();
+			}
+		}
+		return null;
+	}
+	
 }
