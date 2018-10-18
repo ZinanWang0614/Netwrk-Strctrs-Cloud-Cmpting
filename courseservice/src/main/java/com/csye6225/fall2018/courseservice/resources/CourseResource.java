@@ -18,13 +18,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.csye6225.fall2018.courseservice.datamodel.Course;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
-import com.csye6225.fall2018.courseservice.datamodel.Lecture;
 import com.csye6225.fall2018.courseservice.datamodel.Professor;
 import com.csye6225.fall2018.courseservice.datamodel.Student;
 import com.csye6225.fall2018.courseservice.service.CourseService;
 import com.csye6225.fall2018.courseservice.service.LectureService;
-import com.csye6225.fall2018.courseservice.service.ProfessorsService;
-import com.csye6225.fall2018.courseservice.service.StudentService;
 
 public class CourseResource {
 
@@ -92,6 +89,14 @@ public class CourseResource {
 	//******************************************************************************************//
 	
 	
+	
+	//************************************ Board  *********************************************//
+	// board sub-resource
+	@Path("/{courseid}/board")
+	public BoardResource getBoardResource() {
+		return new BoardResource();
+	}
+	//******************************************************************************************//
 	
 	
 	//*************************************** Post Course  **************************************//

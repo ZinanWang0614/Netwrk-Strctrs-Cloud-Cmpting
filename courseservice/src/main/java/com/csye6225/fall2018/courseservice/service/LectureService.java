@@ -38,15 +38,19 @@ public class LectureService {
 	
 	// update a lecture
 	public Lecture updateLecture(Long programId,Long courseId,Long lectureId,Lecture lec) {
+		Lecture old = new Lecture();
 		for(Course course:programDB.get(programId).getCourseList()) {
 			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
 				for(Lecture lecture:course.getLectures()) {
 					if(Long.valueOf(lecture.getLectureId()).equals(lectureId)){
-						lec.setLectureId(lectureId);
-						lecture = lec;
-						return lecture;
+						old = lecture;
 					}
 				}
+				
+				lec.setLectureId(lectureId);
+				course.getLectures().remove(old);
+				course.getLectures().add(lec);
+				return old;
 			}
 		}	
 		return null;

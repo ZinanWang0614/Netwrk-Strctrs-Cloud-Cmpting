@@ -11,16 +11,24 @@ public class Course {
 	private Student ta;
 	private List<Lecture> lectures;
 	private List<Student> enrolledStu;
+	private List<Announcement> board;
+	private List<String> roster;
 	
+	//empty constructor
 	public Course() {}
 	
-	public Course(long courseId,String courseName,Professor prof,Student ta, List<Lecture> lectures, List<Student> enrolledStu) {
+	// constructor
+	public Course(long courseId,String courseName,Professor prof,Student ta, List<Lecture> lectures, 
+			List<Student> enrolledStu, List<Announcement> board, List<String> roster) {
+		
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.professor = prof;
 		this.ta = ta;
 		this.lectures = lectures;
 		this.enrolledStu = enrolledStu;
+		this.board = board;
+		this.roster = roster;
 	}
 
 	public long getCourseId() {
@@ -69,6 +77,22 @@ public class Course {
 
 	public void setEnrolledStu(List<Student> enrolledStu) {
 		this.enrolledStu = enrolledStu;
+	}
+
+	public List<Announcement> getBoard() {
+		return board;
+	}
+
+	public void setBoard(List<Announcement> board) {
+		this.board = board;
+	}
+
+	public List<String> getRoster() {
+		return roster;
+	}
+
+	public void setRoster(List<String> roster) {
+		this.roster = roster;
 	}
 	
 }
