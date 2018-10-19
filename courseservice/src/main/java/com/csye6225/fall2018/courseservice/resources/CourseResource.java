@@ -102,8 +102,8 @@ public class CourseResource {
 		@POST
 		@Produces(MediaType.APPLICATION_JSON)
 		@Consumes(MediaType.APPLICATION_JSON)
-		public Course addCourse(Course course) {
-			return null;
+		public Course addCourse(@PathParam("programid") Long programId,Course course) {
+			return courseService.addCourse(programId, course);
 		}
 	//******************************************************************************************//
 		

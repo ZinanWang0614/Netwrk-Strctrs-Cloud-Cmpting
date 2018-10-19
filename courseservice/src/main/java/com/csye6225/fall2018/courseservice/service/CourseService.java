@@ -27,8 +27,12 @@ public class CourseService {
 	
 	//add a course
 	//To be continue
-	public Course addCourse() {
-		return null;
+	public Course addCourse(Long programId,Course course) {
+		List<Course> list = programDB.get(programId).getCourseList();
+		long nextId = list.size()+1;
+		course.setCourseId(nextId);
+		programDB.get(programId).getCourseList().add(course);
+		return course;
 	}
 	
 	//GET course by Id
