@@ -47,6 +47,14 @@ public class CourseResource {
 	public Course getCoursebyId(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
 		return courseService.getCoursebyId(programId,courseId);
 	}
+	
+	//Delete course
+	@DELETE
+	@Path("/{courseid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Course deleteCourse(@PathParam("programid") Long programId,@PathParam("courseid") Long courseId) {
+		return courseService.deleteCourse(programId, courseId);
+	}
 	//**********************************************************************************//
 
 	

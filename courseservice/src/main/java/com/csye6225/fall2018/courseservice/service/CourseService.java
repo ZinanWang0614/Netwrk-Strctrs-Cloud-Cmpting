@@ -46,6 +46,19 @@ public class CourseService {
 		return null;
 	}
 	
+	//DELETE course by Id
+	public Course deleteCourse(Long programId, Long courseId) {
+		List<Course> list = programDB.get(programId).getCourseList();
+		Course details = new Course();
+		for(Course course:list) {
+			if(courseId.equals(Long.valueOf(course.getCourseId()))) {
+				details = course;
+			}
+		}
+		programDB.get(programId).getCourseList().remove(details);
+		return details;
+	}
+	
 	// Get all enrolled students by courseId
 	public List<Student> getAllStudentsbyCourse(Long programId,Long courseId){
 		List<Course> list = programDB.get(programId).getCourseList();

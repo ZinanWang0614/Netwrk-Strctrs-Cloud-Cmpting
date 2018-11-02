@@ -6,11 +6,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.csye6225.fall2018.courseservice.datamodel.DynamoDbConnect;
 import com.csye6225.fall2018.courseservice.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice.datamodel.Professor;
 
 public class ProfessorsService {
+	
 	static HashMap<Long, Professor> prof_Map = InMemoryDatabase.getProfessorDB();
+	static DynamoDbConnect dynamoDb;
+	DynamoDBMapper mapper; 
+	
 	
 	// Getting a list of all professor 
 	// GET "..webapi/professors"
@@ -27,7 +33,7 @@ public class ProfessorsService {
 	public void addProfessor(String name, String department, Date joiningDate) {
 		// Next Id 
 		long nextAvailableId = prof_Map.size() + 1;
-
+		
 		//Create a Professor Object
 		Professor prof = new Professor(nextAvailableId, name , 
 				department, joiningDate);
@@ -43,7 +49,10 @@ public class ProfessorsService {
 	
 	// Getting One Professor
 	public Professor getProfessor(Long profId) {
-		return prof_Map.get(profId);
+		Professor prof2 = mapper.load(Professor.class, profId);
+	     System.out.println("Item retrieved:");
+	     System.out.println(prof2.toString());
+		return prof2;
 	}
 	
 	// Deleting a professor

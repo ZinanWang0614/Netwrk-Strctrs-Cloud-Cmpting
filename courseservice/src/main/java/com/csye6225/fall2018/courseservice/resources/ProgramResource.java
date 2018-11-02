@@ -37,7 +37,8 @@ public class ProgramResource {
 	@DELETE
 	@Path("/{programid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Program deleteProgram(@PathParam("prgramid") Long programId) {
+	public Program deleteProgram(@PathParam("programid") Long programId) {
+		System.out.println(programId);
 		return programService.deleteProgram(programId);
 	}
 	

@@ -41,6 +41,7 @@ public class ProgramService {
 	public Program deleteProgram(Long programId) {
 		Program details = programDB.get(programId);
 		programDB.remove(programId);
+		System.out.println(programId);
 		return details;
 	}
 }
