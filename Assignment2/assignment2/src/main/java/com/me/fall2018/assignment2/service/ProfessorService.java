@@ -1,9 +1,13 @@
 package com.me.fall2018.assignment2.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.me.fall2018.assignment2.datamodel.DynamoDbConnector;
 import com.me.fall2018.assignment2.datamodel.Professor;
 
@@ -27,16 +31,17 @@ public class ProfessorService {
 	
 	//Get Professor by Id
 	public Professor getProfessorById(String professorId){
-		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-		List<Professor> list = mapper.scan(Professor.class, scanExpression);
-		Professor p = new Professor();
-		for(Professor prof: list) {
-			if(prof.getProfessorId().equals(professorId)) {
-				p= prof;
-			}
-		}
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1", new AttributeValue().withS(professorId));
 		
-		return p;
+		DynamoDBQueryExpression<Professor> queryExpression = new DynamoDBQueryExpression<Professor>()
+				.withIndexName("professorId")
+				.withConsistentRead(false)
+				.withKeyConditionExpression("professorId = :v1")
+				.withExpressionAttributeValues(eav);
+		List<Professor> result = mapper.query(Professor.class, queryExpression);
+		if(result.size()==0) return null;
+		return result.get(0);
 	}
 	
 	// Add a Professor
@@ -47,28 +52,33 @@ public class ProfessorService {
 	
 	//Delete a Professor
 	public void deleteProfessor(String professorId) {
-		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-		List<Professor> list = mapper.scan(Professor.class, scanExpression);
-		for(Professor prof: list) {
-			if(prof.getProfessorId().equals(professorId)) {
-				mapper.delete(prof);
-			}
-		}
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1", new AttributeValue().withS(professorId));
+		
+		DynamoDBQueryExpression<Professor> queryExpression = new DynamoDBQueryExpression<Professor>()
+				.withIndexName("professorId")
+				.withConsistentRead(false)
+				.withKeyConditionExpression("professorId = :v1")
+				.withExpressionAttributeValues(eav);
+		List<Professor> result = mapper.query(Professor.class, queryExpression);
+		if(result.size()==0) return;
+		mapper.delete(result.get(0));
 	}
 	
 	//Update a Professor
 	public Professor updateProfessor(String professorId,Professor prof) {
-		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-		List<Professor> list = mapper.scan(Professor.class, scanExpression);
-		String id = new String();
-		for(Professor p: list) {
-			if(p.getProfessorId().equals(professorId)) {
-				id = p.getId();
-				prof.setId(id);
-				mapper.save(prof);
-				return prof;
-			}
-		}
-		return null;
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1", new AttributeValue().withS(professorId));
+		
+		DynamoDBQueryExpression<Professor> queryExpression = new DynamoDBQueryExpression<Professor>()
+				.withIndexName("professorId")
+				.withConsistentRead(false)
+				.withKeyConditionExpression("professorId = :v1")
+				.withExpressionAttributeValues(eav);
+		List<Professor> result = mapper.query(Professor.class, queryExpression);
+		if(result.size()==0) return null;
+		prof.setId(result.get(0).getId());
+		mapper.save(prof);
+		return prof;
 	}
 }

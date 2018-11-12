@@ -41,7 +41,7 @@ public class Student {
 		this.id = id;
 	}
 	
-	@DynamoDBIndexHashKey(attributeName = "studentId",globalSecondaryIndexName = "studentId")
+	@DynamoDBIndexHashKey(attributeName = "studentId",globalSecondaryIndexName = "studentId-index")
 	public String getStudentId() {
 		return studentId;
 	}
