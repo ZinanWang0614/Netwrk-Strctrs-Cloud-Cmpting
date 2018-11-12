@@ -51,7 +51,7 @@ public class ProfessorService {
 	}
 	
 	//Delete a Professor
-	public void deleteProfessor(String professorId) {
+	public String deleteProfessor(String professorId) {
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":v1", new AttributeValue().withS(professorId));
 		
@@ -61,8 +61,9 @@ public class ProfessorService {
 				.withKeyConditionExpression("professorId = :v1")
 				.withExpressionAttributeValues(eav);
 		List<Professor> result = mapper.query(Professor.class, queryExpression);
-		if(result.size()==0) return;
+		if(result.size()==0) return "Item does not exist!";
 		mapper.delete(result.get(0));
+		return "Delete Success";
 	}
 	
 	//Update a Professor

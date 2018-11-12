@@ -14,7 +14,7 @@ import com.me.fall2018.assignment2.datamodel.DynamoDbConnector;
 public class BoardService {
 
 	static DynamoDbConnector dynamoDb;
-	DynamoDBMapper mapper; 
+	DynamoDBMapper mapper;
 	
 	public BoardService() {
 		dynamoDb = new DynamoDbConnector();
@@ -47,6 +47,9 @@ public class BoardService {
 	
 	// Add a board
 	public Board addBoard(Board board) {
+		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+		List<Board> list = mapper.scan(Board.class, scanExpression);
+		board.setBoardId(String.valueOf(list.size()+1));
 		mapper.save(board);
 		return board;
 	}
@@ -65,12 +68,13 @@ public class BoardService {
 		List<Board> result = mapper.query(Board.class, queryExpression);
 		if(result.size() == 0) return null;
 		board.setId(result.get(0).getId());
+		board.setBoardId(result.get(0).getBoardId());
 		mapper.save(board);
 		return board;
 	}
 	
 	//delete a board
-	public void deleteBoard(String boardId) {
+	public String deleteBoard(String boardId) {
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":v1", new AttributeValue().withS(boardId));
 		
@@ -81,7 +85,8 @@ public class BoardService {
 				.withExpressionAttributeValues(eav);
 		
 		List<Board> result = mapper.query(Board.class, queryExpression);
-		if(result.size()==0) return;
+		if(result.size()==0) return "Item does not exist!";
 		mapper.delete(result.get(0));
+		return "Delete Success";
 	}
 }

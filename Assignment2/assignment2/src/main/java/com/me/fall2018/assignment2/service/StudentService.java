@@ -49,7 +49,26 @@ public class StudentService {
 	}
 
 	// Add a Student
+	// Generate student Id by firstname and lastname
+	// If duplicate, add number to the end of id
+	// zinan.wang & zinan.wang1
 	public Student addStudent(Student student) {
+		String studentId = student.getFirstName()+ "." + student.getLastName();
+		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+		eav.put(":v1", new AttributeValue().withS(studentId));
+		
+		DynamoDBQueryExpression<Student> queryExpression = new DynamoDBQueryExpression<Student>()
+				.withIndexName("studentId-index")
+				.withConsistentRead(false)
+				.withKeyConditionExpression("studentId = :v1")
+				.withExpressionAttributeValues(eav);
+		
+		List<Student> result = mapper.query(Student.class, queryExpression);
+		if(result.size() == 0) {
+			student.setStudentId(studentId);
+		}else {
+			student.setStudentId(studentId+String.valueOf(result.size()+1));
+		}
 		mapper.save(student);
 		return student;
 	}
@@ -73,7 +92,7 @@ public class StudentService {
 	}
 
 	// Delete a Student
-	public void deleteStudent(String studentId) {
+	public String deleteStudent(String studentId) {
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":v1", new AttributeValue().withS(studentId));
 		
@@ -84,8 +103,9 @@ public class StudentService {
 				.withExpressionAttributeValues(eav);
 		
 		List<Student> result = mapper.query(Student.class, queryExpression);
-		if(result.size() == 0) return;
+		if(result.size() == 0) return "Item not exist!";
 		mapper.delete(result.get(0));
+		return "Delete Success";
 	}
 
 }

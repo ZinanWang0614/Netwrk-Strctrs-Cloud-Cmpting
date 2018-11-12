@@ -71,7 +71,7 @@ public class CourseService {
 	}
 	
 	//Delete a Course
-	public void deleteCourse(String courseId) {
+	public String deleteCourse(String courseId) {
 		Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
 		eav.put(":v1", new AttributeValue().withS(courseId));
 		
@@ -82,7 +82,8 @@ public class CourseService {
 				.withExpressionAttributeValues(eav);
 		
 		List<Course> result = mapper.query(Course.class, queryExpression);
-		if(result.size() == 0) return;
+		if(result.size() == 0) return "Item doese not exist!";
 		mapper.delete(result.get(0));
+		return "Delete success!";
 	}
 }

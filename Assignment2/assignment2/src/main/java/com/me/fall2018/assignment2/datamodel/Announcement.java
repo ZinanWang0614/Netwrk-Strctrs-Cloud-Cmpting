@@ -37,7 +37,7 @@ public class Announcement {
 		this.id = id;
 	}
 
-	@DynamoDBIndexRangeKey(attributeName = "announcementId", globalSecondaryIndexName = "annoucementId")
+	@DynamoDBIndexRangeKey(attributeName = "announcementId", globalSecondaryIndexName = "boardId-announcementId-index")
 	public String getAnnouncementId() {
 		return announcementId;
 	}
@@ -54,7 +54,7 @@ public class Announcement {
 		this.announcementText = announcementText;
 	}
 
-	@DynamoDBIndexHashKey(attributeName = "boardId",globalSecondaryIndexName = "boardId")
+	@DynamoDBIndexHashKey(attributeName = "boardId",globalSecondaryIndexName = "boardId-announcementId-index")
 	public String getBoardId() {
 		return boardId;
 	}

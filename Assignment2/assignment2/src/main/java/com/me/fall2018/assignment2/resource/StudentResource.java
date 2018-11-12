@@ -50,8 +50,7 @@ public class StudentResource {
 	
 	@DELETE
 	@Path("{studentId}")
-	public String deleteStudent(@PathParam("studentId") String studentId) {
-		stuService.deleteStudent(studentId);
-		return "Delete Success";
+	public String deleteStudent(@PathParam("studentId") String studentId) {	
+		return stuService.deleteStudent(studentId);
 	}
 }

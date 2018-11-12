@@ -45,8 +45,7 @@ public class ProfessorResource {
 	@DELETE
 	@Path("/{professorId}")
 	public String deleteProfessor(@PathParam("professorId") String professorId) {
-		profService.deleteProfessor(professorId);
-		return "Delete Success";
+		return profService.deleteProfessor(professorId);
 	}
 	
 	@PUT

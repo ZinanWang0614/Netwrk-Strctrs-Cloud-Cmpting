@@ -50,8 +50,7 @@ public class BoardResource {
 	
 	@DELETE
 	@Path("/{boardId}")
-	public String deleteBoard(@PathParam("boardId") String boardId) {
-		boardService.deleteBoard(boardId);
-		return "Delete success";
+	public String deleteBoard(@PathParam("boardId") String boardId) {		
+		return boardService.deleteBoard(boardId);
 	}
 }
