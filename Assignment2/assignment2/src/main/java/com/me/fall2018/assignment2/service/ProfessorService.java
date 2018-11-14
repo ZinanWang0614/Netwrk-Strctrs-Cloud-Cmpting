@@ -46,6 +46,9 @@ public class ProfessorService {
 	
 	// Add a Professor
 	public Professor addProfessor(Professor prof) {
+		DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+		List<Professor> list = mapper.scan(Professor.class, scanExpression);
+		prof.setProfessorId(prof.getFirstName()+String.valueOf(list.size()+1));
 		mapper.save(prof);
 		return prof;
 	}

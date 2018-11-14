@@ -87,6 +87,7 @@ public class StudentService {
 		List<Student> result = mapper.query(Student.class, queryExpression);
 		if(result.size() == 0) return null;
 		student.setId(result.get(0).getId());
+		student.setStudentId(result.get(0).getStudentId());
 		mapper.save(student);
 		return student;
 	}
