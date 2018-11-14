@@ -191,6 +191,7 @@ Sample Input<br>
 |     Url   | Input  |Example|
 | ------| ------ |------ |
 | PUT:/boards/{boardId} | Json |/boards/1|
+
 Sample Input<br>
 ```json
 {
@@ -229,6 +230,8 @@ Sample Input<br>
 |     Url   | Input  |Example|
 | ------| ------ |------ |
 | POST:/announcements/{boardId} | Json |/announcements/2|
+
+Sample Input<br>
 ```json
 {
     "announcementText": "Welcome!"
@@ -238,6 +241,7 @@ Sample Input<br>
 |     Url   | Input  |Example|
 | ------| ------ |------ |
 | PUT:/announcements/{boardId}_{announcementId} | Json |/announcements/1_1|
+
 Sample Input<br>
 ```json
 {
