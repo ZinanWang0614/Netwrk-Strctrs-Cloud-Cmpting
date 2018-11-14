@@ -247,4 +247,4 @@ Sample Input<br>
 #### Delete a Course
 |     Url   | Input  |Example|
 | ------| ------ |------ |
-| DELETE:/announcements/{boardId}_{announcements} | * |/announcements/2_1|
+| DELETE:/announcements/{boardId}_{announcementId} | * |/announcements/2_1|
